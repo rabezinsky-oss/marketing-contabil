@@ -1,6 +1,6 @@
 {
   "name": "marketing-contabil",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "Marketing Contábil",
   "main": "electron/main.js",
   "author": "Marketing Contábil",
