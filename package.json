@@ -1,0 +1,45 @@
+{
+  "name": "marketing-contabil",
+  "version": "1.5.3",
+  "description": "Marketing Contábil",
+  "main": "electron/main.js",
+  "author": "Marketing Contábil",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win"
+  },
+  "devDependencies": {
+    "electron": "^38.2.1",
+    "electron-builder": "^26.0.12"
+  },
+  "dependencies": {
+    "electron-updater": "^6.8.9"
+  },
+  "build": {
+    "appId": "br.com.marketingcontabil.app",
+    "productName": "Marketing Contábil",
+    "publish": {
+      "provider": "github",
+      "owner": "rabezinsky-oss",
+      "repo": "marketing-contabil"
+    },
+    "files": [
+      "**/*",
+      "!node_modules/.cache/**"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "artifactName": "Marketing-Contabil-Setup-${version}.${ext}",
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Marketing Contábil"
+    }
+  }
+}

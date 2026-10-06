@@ -1,0 +1,12 @@
+MARKETING CONTÁBIL — APLICATIVO WINDOWS
+
+Este pacote contém o projeto preparado para ser empacotado como aplicativo Windows (.exe).
+
+Para gerar o instalador no Windows:
+1. Instale Node.js LTS.
+2. Abra o PowerShell nesta pasta.
+3. Execute: npm install
+4. Execute: npm run dist
+5. O instalador será criado na pasta dist, com o nome Marketing-Contabil-Setup-1.5.0.exe
+
+O aplicativo mantém o index.html e os demais arquivos do sistema.

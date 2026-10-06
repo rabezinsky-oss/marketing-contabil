@@ -1,0 +1,11 @@
+{
+  "name": "Marketing Contábil",
+  "short_name": "Marketing Contábil",
+  "description": "Sistema de gestão de marketing para contabilidades.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f7fb",
+  "theme_color": "#152238",
+  "lang": "pt-BR",
+  "icons": []
+}
