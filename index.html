@@ -624,7 +624,23 @@ function addContent(){let a=get('contents');a.push({id:Date.now(),date:cDate.val
 function addIdea(){let a=get('ideas');a.push({id:Date.now(),theme:iTheme.value,cat:iCat.value,note:iNote.value});set('ideas',a);iTheme.value='';iNote.value='';render();}
 function savePost(){let a=get('posts');a.push({id:Date.now(),theme:pTheme.value,format:pFormat.value,date:new Date().toISOString().slice(0,10),tone:pTone.value,audience:pAudience.value,text:pText.value,createdAt:new Date().toISOString()});set('posts',a);pTheme.value='';pAudience.value='';pText.value='';render();}
 function addResult(){let a=get('results');a.push({id:Date.now(),name:rName.value,date:rDate.value||new Date().toISOString().slice(0,10),reach:+rReach.value,views:+rViews.value,interactions:+rInteractions.value,followers:+rFollowers.value,createdAt:new Date().toISOString()});set('results',a);render();}
-function addDate(){let a=get('dates');a.push({id:Date.now(),date:dDate.value,name:dName.value});set('dates',a);dName.value='';render();}
+function addDate(){
+  const dateInput=document.getElementById('dDate');
+  const nameInput=document.getElementById('dName');
+  const date=String(dateInput?.value||'').trim();
+  const name=String(nameInput?.value||'').trim();
+  if(!date||!name){alert('Informe a data e o nome da data importante.');return;}
+  const a=Array.isArray(get('dates',[]))?get('dates',[]):[];
+  const duplicate=a.some(x=>String(x.date||'')===date&&String(x.name||'').trim().toLowerCase()===name.toLowerCase());
+  if(duplicate){alert('Essa data já está cadastrada.');return;}
+  a.push({id:'manual-'+Date.now(),date,name,kind:'Data cadastrada por você',automatic:false,createdAt:new Date().toISOString()});
+  set('dates',a);
+  dateInput.value='';
+  nameInput.value='';
+  render();
+  show('dates');
+  alert('Data importante adicionada e salva.');
+}
 function del(k,id){set(k,get(k).filter(x=>x.id!==id));render();}
 function statusBadge(status){
   const s=String(status||'Não feito');
@@ -680,7 +696,7 @@ contentTable.innerHTML=c.map(x=>`<tr><td>${x.date||'-'}</td><td>${x.format}</td>
 ideasList.innerHTML=i.map(x=>`<div class="item"><div class="row"><div><b>${esc(x.theme)}</b><br><span class="tag">${x.cat}</span></div><div class="actions"><button class="btn secondary small" onclick="editItem('ideas',${x.id})">Editar</button><button class="btn danger small" onclick="del('ideas',${x.id})">Excluir</button></div></div><p class="muted">${esc(x.note||'')}</p></div>`).join('')||'<div class="muted">Nenhuma ideia cadastrada.</div>';
 postsList.innerHTML=p.map(x=>`<div class="item"><div class="row"><div><b>${esc(x.theme)}</b> <span class="tag">${x.format}</span><span class="tag">${x.tone}</span></div><div class="actions"><button class="btn secondary small" onclick="editPost(${x.id})">Editar</button><button class="btn danger small" onclick="del('posts',${x.id})">Excluir</button></div></div><p>${esc(x.text||'')}</p><small class="muted">Público: ${esc(x.audience||'-')} · Data: ${x.date||'sem data'}</small></div>`).join('')||'<div class="muted">Nenhum conteúdo salvo.</div>';
 resultsTable.innerHTML=r.map(x=>`<tr><td>${esc(x.name)}<br><small class="muted">${x.date||'-'}</small></td><td>${x.reach}</td><td>${x.views}</td><td>${x.interactions}</td><td>${x.followers}</td><td><div class="actions"><button class="btn secondary small" onclick="editResult(${x.id})">Editar</button><button class="btn danger small" onclick="del('results',${x.id})">Excluir</button></div></td></tr>`).join('')||'<tr><td colspan="6" class="muted">Nenhum resultado cadastrado.</td></tr>';
-datesList.innerHTML=d.sort((a,b)=>a.date.localeCompare(b.date)).map(x=>`<div class="item"><div class="row"><div><b>${esc(x.name)}</b><br><span class="tag">${x.date}</span></div><div class="actions"><button class="btn secondary small" onclick="editItem('dates',${x.id})">Editar</button><button class="btn danger small" onclick="del('dates',${x.id})">Excluir</button></div></div></div>`).join('')||'<div class="muted">Nenhuma data cadastrada.</div>';
+datesList.innerHTML=d.slice().sort((a,b)=>String(a.date||'').localeCompare(String(b.date||''))).map(x=>`<div class="item"><div class="row"><div><b>${esc(x.name||'Data importante')}</b><br><span class="tag">${esc(x.date||'-')}</span> <span class="tag">${x.automatic?'Automática':'Manual'}</span></div><div class="actions"><button class="btn secondary small" onclick="editItem('dates',${x.id})">Editar</button><button class="btn danger small" onclick="del('dates',${x.id})">Excluir</button></div></div></div>`).join('')||'<div class="muted">Nenhuma data cadastrada.</div>';
 
 const weekData=get('weekItems', nextWeek); weekList.innerHTML=weekData.map((x,idx)=>`<div class="item"><div class="row"><div><span class="tag">${['SEGUNDA','TERÇA','QUARTA','QUINTA','SEXTA'][idx]||'DIA'}</span><b>${esc(x.theme)}</b><span class="tag">${x.format}</span><br><small>${x.date}</small></div><div class="actions"><button class="btn secondary small" onclick="editItem('weekItems',${x.id})">Editar semana</button><button class="btn danger small" onclick="deleteWeek(${x.id})">Excluir ideia</button></div></div></div>`).join('');
 let ss=get('stories');storiesList.innerHTML=ss.map(x=>`<div class="item"><div class="row"><div><span class="tag">${x.day}</span><span class="tag">${x.type}</span>${esc(x.text)}</div><div class="actions"><button class="btn secondary small" onclick="editItem('stories',${x.id})">Editar</button><button class="btn danger small" onclick="del('stories',${x.id})">Excluir</button></div></div></div>`).join('')||'<div class="muted">Nenhum Story cadastrado.</div>';
