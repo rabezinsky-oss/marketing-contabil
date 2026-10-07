@@ -74,7 +74,7 @@ input,select,textarea{width:100%;padding:10px;border:1px solid #d8e0ea;border-ra
         (x.automatic?'Automática':'Manual')+'</span></div></div></div>';
     }).join('') : '<div class="muted">Nenhuma data cadastrada.</div>';
   }
-  function saveImportantDateFromButton(event){
+  window.saveImportantDateFromButton = function(event){
     var target=event.target && event.target.closest ? event.target.closest('#addDateButton') : null;
     if(!target) return;
     event.preventDefault();
@@ -425,7 +425,7 @@ input,select,textarea{width:100%;padding:10px;border:1px solid #d8e0ea;border-ra
 <div class="card"><div class="form">
 <label>Data<input type="date" id="dDate"></label>
 <label>Nome<input id="dName" placeholder="Ex.: Dia do Cliente"></label>
-<div class="full"><button type="button" class="btn" id="addDateButton">Adicionar data</button></div>
+<div class="full"><button type="button" class="btn" id="addDateButton" onclick="return window.saveImportantDateFromButton(event)">Adicionar data</button></div>
 </div></div>
 <div class="section card"><div id="datesList" class="list"></div></div>
 </section>
