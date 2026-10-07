@@ -688,7 +688,7 @@ function renderDashboard(md,c,p,r,ss,goals){
 
 function render(){
 ensureCurrentMonth(); renderSettings();
-let md=currentMonthData(), c=md.contents, i=get('ideas'), p=md.posts, r=md.results, d=get('dates');
+let md=currentMonthData(), c=md.contents, i=get('ideas'), p=md.posts, r=md.results, d=get('dates'), ss=get('stories');
 const goals=get('monthlyGoals')[md.k];
 renderDashboard(md,c,p,r,ss,goals);
 mContent.textContent=c.length+p.length;mIdeas.textContent=i.length;mPublished.textContent=c.filter(x=>['Publicado','Concluído'].includes(x.status)).length;mFollowers.textContent=r.reduce((s,x)=>s+(+x.followers||0),0);
@@ -699,7 +699,7 @@ resultsTable.innerHTML=r.map(x=>`<tr><td>${esc(x.name)}<br><small class="muted">
 datesList.innerHTML=d.slice().sort((a,b)=>String(a.date||'').localeCompare(String(b.date||''))).map(x=>`<div class="item"><div class="row"><div><b>${esc(x.name||'Data importante')}</b><br><span class="tag">${esc(x.date||'-')}</span> <span class="tag">${x.automatic?'Automática':'Manual'}</span></div><div class="actions"><button class="btn secondary small" onclick="editItem('dates',${x.id})">Editar</button><button class="btn danger small" onclick="del('dates',${x.id})">Excluir</button></div></div></div>`).join('')||'<div class="muted">Nenhuma data cadastrada.</div>';
 
 const weekData=get('weekItems', nextWeek); weekList.innerHTML=weekData.map((x,idx)=>`<div class="item"><div class="row"><div><span class="tag">${['SEGUNDA','TERÇA','QUARTA','QUINTA','SEXTA'][idx]||'DIA'}</span><b>${esc(x.theme)}</b><span class="tag">${x.format}</span><br><small>${x.date}</small></div><div class="actions"><button class="btn secondary small" onclick="editItem('weekItems',${x.id})">Editar semana</button><button class="btn danger small" onclick="deleteWeek(${x.id})">Excluir ideia</button></div></div></div>`).join('');
-let ss=get('stories');storiesList.innerHTML=ss.map(x=>`<div class="item"><div class="row"><div><span class="tag">${x.day}</span><span class="tag">${x.type}</span>${esc(x.text)}</div><div class="actions"><button class="btn secondary small" onclick="editItem('stories',${x.id})">Editar</button><button class="btn danger small" onclick="del('stories',${x.id})">Excluir</button></div></div></div>`).join('')||'<div class="muted">Nenhum Story cadastrado.</div>';
+storiesList.innerHTML=ss.map(x=>`<div class="item"><div class="row"><div><span class="tag">${x.day}</span><span class="tag">${x.type}</span>${esc(x.text)}</div><div class="actions"><button class="btn secondary small" onclick="editItem('stories',${x.id})">Editar</button><button class="btn danger small" onclick="del('stories',${x.id})">Excluir</button></div></div></div>`).join('')||'<div class="muted">Nenhum Story cadastrado.</div>';
 goalReels.textContent=p.filter(x=>x.format==='Reels').length+c.filter(x=>x.format==='Reels').length;
 goalPosts.textContent=p.filter(x=>x.format==='Post').length+c.filter(x=>x.format==='Post').length;
 goalStories.textContent=ss.filter(x=>String(x.createdAt||'').slice(0,7)===md.k).length; goalFollowers.textContent=r.reduce((s,x)=>s+(+x.followers||0),0);
