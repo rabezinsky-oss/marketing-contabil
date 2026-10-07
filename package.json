@@ -1,6 +1,6 @@
 {
   "name": "marketing-contabil",
-  "version": "1.5.8",
+  "version": "1.5.9",
   "description": "Marketing Contábil",
   "main": "electron/main.js",
   "author": "Marketing Contábil",
@@ -32,7 +32,8 @@
         "nsis"
       ],
       "artifactName": "Marketing-Contabil-Setup-${version}.${ext}",
-      "signAndEditExecutable": false
+      "signAndEditExecutable": false,
+      "verifyUpdateCodeSignature": false
     },
     "nsis": {
       "oneClick": false,
