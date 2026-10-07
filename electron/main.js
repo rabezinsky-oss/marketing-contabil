@@ -1,4 +1,4 @@
-const { app, BrowserWindow, shell, dialog } = require("electron");
+const { app, BrowserWindow, shell, dialog, Notification, ipcMain } = require("electron");
 const path = require("path");
 const { autoUpdater } = require("electron-updater");
 
@@ -14,7 +14,8 @@ function createWindow() {
     backgroundColor: "#f5f7fb",
     webPreferences: {
       contextIsolation: true,
-      nodeIntegration: false
+      nodeIntegration: false,
+      preload: path.join(__dirname, "preload.js")
     }
   });
 
@@ -23,6 +24,19 @@ function createWindow() {
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
     shell.openExternal(url);
     return { action: "deny" };
+  });
+}
+
+function setupDesktopNotifications() {
+  ipcMain.on("show-notification", (_event, payload = {}) => {
+    if (process.platform !== "win32") return;
+    const title = String(payload.title || "Marketing Contábil");
+    const body = String(payload.body || "");
+    try {
+      new Notification({ title, body }).show();
+    } catch (error) {
+      console.error("Erro ao exibir notificação do Windows:", error);
+    }
   });
 }
 
@@ -68,6 +82,7 @@ function setupAutoUpdater() {
 }
 
 app.whenReady().then(() => {
+  setupDesktopNotifications();
   createWindow();
   setupAutoUpdater();
 
