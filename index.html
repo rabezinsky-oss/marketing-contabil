@@ -54,6 +54,72 @@ input,select,textarea{width:100%;padding:10px;border:1px solid #d8e0ea;border-ra
 @media(max-width:1050px){.dashboard-actions,.dashboard-metrics{grid-template-columns:repeat(2,1fr)}.dashboard-main-grid,.dashboard-main-grid.second{grid-template-columns:1fr}.week-mini-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:650px){.dashboard-hero{display:block}.dashboard-date{display:inline-block;margin-top:4px}.dashboard-actions,.dashboard-metrics{grid-template-columns:1fr}.week-mini-grid{grid-template-columns:1fr 1fr}.dashboard-hero h1{font-size:27px}}
 </style>
+<script>
+(function(){
+  function escDateText(value){
+    return String(value == null ? '' : value).replace(/[&<>"]/g,function(ch){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch];
+    });
+  }
+  function renderImportantDatesDirect(){
+    var list=document.getElementById('datesList');
+    if(!list) return;
+    var dates=[];
+    try{ dates=JSON.parse(localStorage.getItem('dates') || '[]'); }catch(_){ dates=[]; }
+    if(!Array.isArray(dates)) dates=[];
+    dates.sort(function(a,b){ return String(a.date||'').localeCompare(String(b.date||'')); });
+    list.innerHTML=dates.length ? dates.map(function(x){
+      return '<div class="item"><div class="row"><div><b>'+escDateText(x.name||'Data importante')+
+        '</b><br><span class="tag">'+escDateText(x.date||'-')+'</span> <span class="tag">'+
+        (x.automatic?'Automática':'Manual')+'</span></div></div></div>';
+    }).join('') : '<div class="muted">Nenhuma data cadastrada.</div>';
+  }
+  function saveImportantDateFromButton(event){
+    var target=event.target && event.target.closest ? event.target.closest('#addDateButton') : null;
+    if(!target) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    try{
+      var dateInput=document.getElementById('dDate');
+      var nameInput=document.getElementById('dName');
+      var date=String(dateInput && dateInput.value || '').trim();
+      var name=String(nameInput && nameInput.value || '').trim();
+      if(!date || !name){
+        alert('Informe a data e o nome da data importante.');
+        return;
+      }
+      var dates=[];
+      try{ dates=JSON.parse(localStorage.getItem('dates') || '[]'); }catch(_){ dates=[]; }
+      if(!Array.isArray(dates)) dates=[];
+      var duplicate=dates.some(function(x){
+        return String(x.date||'')===date &&
+          String(x.name||'').trim().toLowerCase()===name.toLowerCase();
+      });
+      if(duplicate){
+        alert('Essa data já está cadastrada.');
+        return;
+      }
+      dates.push({
+        id:'manual-'+Date.now(),
+        date:date,
+        name:name,
+        kind:'Data cadastrada por você',
+        automatic:false,
+        createdAt:new Date().toISOString()
+      });
+      localStorage.setItem('dates',JSON.stringify(dates));
+      if(dateInput) dateInput.value='';
+      if(nameInput) nameInput.value='';
+      renderImportantDatesDirect();
+      alert('Data importante adicionada e salva.');
+    }catch(error){
+      alert('Erro ao adicionar a data: '+String(error && error.message || error));
+    }
+  }
+  document.addEventListener('click',saveImportantDateFromButton,true);
+  document.addEventListener('DOMContentLoaded',renderImportantDatesDirect);
+})();
+</script>
 </head>
 <body>
 <div id="loginScreen" class="login-screen">
@@ -365,96 +431,70 @@ input,select,textarea{width:100%;padding:10px;border:1px solid #d8e0ea;border-ra
 </section>
 
 <script>
-/* Fallback independente para Datas Importantes.
-   Fica fora do script principal para funcionar mesmo se outra parte do app tiver erro. */
-window.saveImportantDateDirect = function(){
-  try{
-    const dateInput=document.getElementById('dDate');
-    const nameInput=document.getElementById('dName');
-    const date=String(dateInput && dateInput.value || '').trim();
-    const name=String(nameInput && nameInput.value || '').trim();
-    if(!date || !name){ alert('Informe a data e o nome da data importante.'); return; }
-    let dates=[];
+(function(){
+  function escDateText(value){
+    return String(value == null ? '' : value).replace(/[&<>"]/g,function(ch){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch];
+    });
+  }
+  function renderImportantDatesDirect(){
+    var list=document.getElementById('datesList');
+    if(!list) return;
+    var dates=[];
     try{ dates=JSON.parse(localStorage.getItem('dates') || '[]'); }catch(_){ dates=[]; }
     if(!Array.isArray(dates)) dates=[];
-    if(dates.some(function(x){return String(x.date||'')===date && String(x.name||'').trim().toLowerCase()===name.toLowerCase();})){
-      alert('Essa data já está cadastrada.'); return;
-    }
-    dates.push({id:'manual-'+Date.now(),date:date,name:name,kind:'Data cadastrada por você',automatic:false,createdAt:new Date().toISOString()});
-    localStorage.setItem('dates',JSON.stringify(dates));
-    if(dateInput) dateInput.value='';
-    if(nameInput) nameInput.value='';
-    const list=document.getElementById('datesList');
-    if(list){
-      list.innerHTML=dates.slice().sort(function(a,b){return String(a.date||'').localeCompare(String(b.date||''));}).map(function(x){
-        const safeName=String(x.name||'Data importante').replace(/[&<>"]/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch];});
-        return '<div class="item"><div class="row"><div><b>'+safeName+'</b><br><span class="tag">'+String(x.date||'-')+'</span> <span class="tag">'+(x.automatic?'Automática':'Manual')+'</span></div></div></div>';
-      }).join('');
-    }
-    alert('Data importante adicionada e salva.');
-  }catch(error){
-    alert('Erro ao adicionar a data: '+String(error && error.message || error));
+    dates.sort(function(a,b){ return String(a.date||'').localeCompare(String(b.date||'')); });
+    list.innerHTML=dates.length ? dates.map(function(x){
+      return '<div class="item"><div class="row"><div><b>'+escDateText(x.name||'Data importante')+
+        '</b><br><span class="tag">'+escDateText(x.date||'-')+'</span> <span class="tag">'+
+        (x.automatic?'Automática':'Manual')+'</span></div></div></div>';
+    }).join('') : '<div class="muted">Nenhuma data cadastrada.</div>';
   }
-};
-window.addEventListener('DOMContentLoaded',function(){
-  const button=document.getElementById('addDateButton');
-  if(button) button.addEventListener('click',window.saveImportantDateDirect);
-});
-window.addDate = function(){
-  try{
-    const dateInput=document.getElementById('dDate');
-    const nameInput=document.getElementById('dName');
-    const date=String(dateInput && dateInput.value || '').trim();
-    const name=String(nameInput && nameInput.value || '').trim();
-
-    if(!date || !name){
-      alert('Informe a data e o nome da data importante.');
-      return;
+  function saveImportantDateFromButton(event){
+    var target=event.target && event.target.closest ? event.target.closest('#addDateButton') : null;
+    if(!target) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    try{
+      var dateInput=document.getElementById('dDate');
+      var nameInput=document.getElementById('dName');
+      var date=String(dateInput && dateInput.value || '').trim();
+      var name=String(nameInput && nameInput.value || '').trim();
+      if(!date || !name){
+        alert('Informe a data e o nome da data importante.');
+        return;
+      }
+      var dates=[];
+      try{ dates=JSON.parse(localStorage.getItem('dates') || '[]'); }catch(_){ dates=[]; }
+      if(!Array.isArray(dates)) dates=[];
+      var duplicate=dates.some(function(x){
+        return String(x.date||'')===date &&
+          String(x.name||'').trim().toLowerCase()===name.toLowerCase();
+      });
+      if(duplicate){
+        alert('Essa data já está cadastrada.');
+        return;
+      }
+      dates.push({
+        id:'manual-'+Date.now(),
+        date:date,
+        name:name,
+        kind:'Data cadastrada por você',
+        automatic:false,
+        createdAt:new Date().toISOString()
+      });
+      localStorage.setItem('dates',JSON.stringify(dates));
+      if(dateInput) dateInput.value='';
+      if(nameInput) nameInput.value='';
+      renderImportantDatesDirect();
+      alert('Data importante adicionada e salva.');
+    }catch(error){
+      alert('Erro ao adicionar a data: '+String(error && error.message || error));
     }
-
-    let dates=[];
-    try{ dates=JSON.parse(localStorage.getItem('dates') || '[]'); }catch(_){ dates=[]; }
-    if(!Array.isArray(dates)) dates=[];
-
-    const duplicate=dates.some(function(x){
-      return String(x.date||'')===date && String(x.name||'').trim().toLowerCase()===name.toLowerCase();
-    });
-    if(duplicate){
-      alert('Essa data já está cadastrada.');
-      return;
-    }
-
-    dates.push({
-      id:'manual-'+Date.now(),
-      date:date,
-      name:name,
-      kind:'Data cadastrada por você',
-      automatic:false,
-      createdAt:new Date().toISOString()
-    });
-    localStorage.setItem('dates',JSON.stringify(dates));
-
-    if(dateInput) dateInput.value='';
-    if(nameInput) nameInput.value='';
-
-    const list=document.getElementById('datesList');
-    if(list){
-      list.innerHTML=dates.slice().sort(function(a,b){
-        return String(a.date||'').localeCompare(String(b.date||''));
-      }).map(function(x){
-        return '<div class="item"><div class="row"><div><b>'+
-          String(x.name||'Data importante').replace(/[&<>"]/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]})+
-          '</b><br><span class="tag">'+String(x.date||'-')+'</span> <span class="tag">'+
-          (x.automatic?'Automática':'Manual')+
-          '</span></div></div></div>';
-      }).join('') || '<div class="muted">Nenhuma data cadastrada.</div>';
-    }
-
-    alert('Data importante adicionada e salva.');
-  }catch(error){
-    alert('Erro ao adicionar a data: '+String(error && error.message || error));
   }
-};
+  document.addEventListener('click',saveImportantDateFromButton,true);
+  document.addEventListener('DOMContentLoaded',renderImportantDatesDirect);
+})();
 </script>
 
 <section id="profile" class="view">
