@@ -359,7 +359,7 @@ input,select,textarea{width:100%;padding:10px;border:1px solid #d8e0ea;border-ra
 <div class="card"><div class="form">
 <label>Data<input type="date" id="dDate"></label>
 <label>Nome<input id="dName" placeholder="Ex.: Dia do Cliente"></label>
-<div class="full"><button class="btn" onclick="addDate()">Adicionar data</button></div>
+<div class="full"><button class="btn" onclick="try{if(typeof addDate!=='function'){throw new Error('A função addDate não foi carregada.');} addDate();}catch(e){alert('Erro ao adicionar a data: '+(e&&e.message?e.message:e));}">Adicionar data</button></div>
 </div></div>
 <div class="section card"><div id="datesList" class="list"></div></div>
 </section>
