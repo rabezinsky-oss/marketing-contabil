@@ -359,7 +359,7 @@ input,select,textarea{width:100%;padding:10px;border:1px solid #d8e0ea;border-ra
 <div class="card"><div class="form">
 <label>Data<input type="date" id="dDate"></label>
 <label>Nome<input id="dName" placeholder="Ex.: Dia do Cliente"></label>
-<div class="full"><button class="btn" onclick="try{if(typeof addDate!=='function'){throw new Error('A função addDate não foi carregada.');} addDate();}catch(e){alert('Erro ao adicionar a data: '+(e&&e.message?e.message:e));}">Adicionar data</button></div>
+<div class="full"><button type="button" class="btn" id="addDateButton">Adicionar data</button></div>
 </div></div>
 <div class="section card"><div id="datesList" class="list"></div></div>
 </section>
@@ -367,6 +367,39 @@ input,select,textarea{width:100%;padding:10px;border:1px solid #d8e0ea;border-ra
 <script>
 /* Fallback independente para Datas Importantes.
    Fica fora do script principal para funcionar mesmo se outra parte do app tiver erro. */
+window.saveImportantDateDirect = function(){
+  try{
+    const dateInput=document.getElementById('dDate');
+    const nameInput=document.getElementById('dName');
+    const date=String(dateInput && dateInput.value || '').trim();
+    const name=String(nameInput && nameInput.value || '').trim();
+    if(!date || !name){ alert('Informe a data e o nome da data importante.'); return; }
+    let dates=[];
+    try{ dates=JSON.parse(localStorage.getItem('dates') || '[]'); }catch(_){ dates=[]; }
+    if(!Array.isArray(dates)) dates=[];
+    if(dates.some(function(x){return String(x.date||'')===date && String(x.name||'').trim().toLowerCase()===name.toLowerCase();})){
+      alert('Essa data já está cadastrada.'); return;
+    }
+    dates.push({id:'manual-'+Date.now(),date:date,name:name,kind:'Data cadastrada por você',automatic:false,createdAt:new Date().toISOString()});
+    localStorage.setItem('dates',JSON.stringify(dates));
+    if(dateInput) dateInput.value='';
+    if(nameInput) nameInput.value='';
+    const list=document.getElementById('datesList');
+    if(list){
+      list.innerHTML=dates.slice().sort(function(a,b){return String(a.date||'').localeCompare(String(b.date||''));}).map(function(x){
+        const safeName=String(x.name||'Data importante').replace(/[&<>"]/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch];});
+        return '<div class="item"><div class="row"><div><b>'+safeName+'</b><br><span class="tag">'+String(x.date||'-')+'</span> <span class="tag">'+(x.automatic?'Automática':'Manual')+'</span></div></div></div>';
+      }).join('');
+    }
+    alert('Data importante adicionada e salva.');
+  }catch(error){
+    alert('Erro ao adicionar a data: '+String(error && error.message || error));
+  }
+};
+window.addEventListener('DOMContentLoaded',function(){
+  const button=document.getElementById('addDateButton');
+  if(button) button.addEventListener('click',window.saveImportantDateDirect);
+});
 window.addDate = function(){
   try{
     const dateInput=document.getElementById('dDate');
