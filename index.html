@@ -30,6 +30,24 @@ input,select,textarea{width:100%;padding:10px;border:1px solid #d8e0ea;border-ra
 
 .ai-image-card{overflow:hidden}.ai-image-output{margin-top:16px}.generated-image-card{display:grid;gap:12px}.generated-image-card img{width:100%;max-height:720px;object-fit:contain;border:1px solid #e5eaf1;border-radius:14px;background:#f5f7fb}.ai-image-card h2{font-size:19px}.ai-image-card textarea{min-height:80px}
 .login-screen{position:fixed;inset:0;background:linear-gradient(135deg,#152238 0%,#1d3557 55%,#1769aa 100%);display:flex;align-items:center;justify-content:center;padding:24px;z-index:9999}.login-screen.hidden{display:none}.login-box{width:min(430px,100%);background:#fff;border-radius:24px;padding:34px;box-shadow:0 25px 80px #08152666}.login-brand{text-align:center;margin-bottom:28px}.login-brand .mark{font-size:27px;font-weight:900;letter-spacing:.5px;color:#152238}.login-brand .mark span{color:#1769aa}.login-brand p{margin:8px 0 0;color:#758196}.login-field{margin:14px 0}.login-field label{font-size:13px;font-weight:700;color:#344054}.login-btn{width:100%;margin-top:10px;border:0;border-radius:12px;padding:13px;background:#1769aa;color:#fff;font-size:15px;font-weight:800;cursor:pointer}.login-btn:hover{background:#125987}.remember{display:flex;align-items:center;gap:8px;margin:14px 0;color:#667085;font-size:13px}.remember input{width:auto;margin:0}.login-error{display:none;background:#fff0f0;color:#a12626;border:1px solid #ffd1d1;border-radius:10px;padding:10px;font-size:13px;margin-top:12px}.login-footer{text-align:center;margin-top:22px;font-size:12px;color:#98a2b3}.topbar{display:flex;justify-content:flex-end;margin-bottom:12px}.logout-btn{border:0;border-radius:9px;padding:8px 11px;background:#eef1f5;color:#344054;cursor:pointer;font-weight:700}.logout-btn:hover{background:#e4e8ee}
+.notification-wrap{position:relative;margin-right:8px}
+.notification-btn{position:relative;border:1px solid #dfe5ed;background:#fff;color:#344054;width:40px;height:40px;border-radius:11px;cursor:pointer;font-size:19px;display:grid;place-items:center}
+.notification-btn:hover{background:#f7f9fc}
+.notification-badge{position:absolute;top:-5px;right:-5px;min-width:19px;height:19px;padding:0 5px;border-radius:99px;background:#d92d20;color:#fff;font-size:10px;font-weight:900;display:grid;place-items:center;border:2px solid #f5f7fb}
+.notification-panel{position:absolute;right:0;top:48px;width:min(390px,calc(100vw - 36px));background:#fff;border:1px solid #e1e7ef;border-radius:16px;box-shadow:0 18px 50px #14223825;display:none;z-index:200;overflow:hidden}
+.notification-panel.open{display:block}
+.notification-head{padding:14px 15px;border-bottom:1px solid #edf0f5;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.notification-head h3{margin:0;font-size:15px}
+.notification-list{max-height:430px;overflow:auto}
+.notification-item{padding:13px 15px;border-bottom:1px solid #edf0f5;cursor:pointer}
+.notification-item:hover{background:#f8fafc}
+.notification-item.unread{background:#f4f8ff}
+.notification-item b{font-size:12px;display:block}
+.notification-item p{font-size:12px;line-height:1.45;color:#667085;margin:5px 0 7px}
+.notification-item small{font-size:10px;color:#98a2b3}
+.notification-empty{padding:24px 16px;text-align:center;color:#758196;font-size:12px}
+.notification-dot{width:7px;height:7px;border-radius:50%;background:#1769aa;display:inline-block;margin-right:5px}
+@media(max-width:650px){.notification-panel{position:fixed;right:18px;top:68px}}
 .app{display:none}.auth-status{margin-top:12px;border-radius:10px;padding:10px;font-size:13px;display:none}.auth-status.show{display:block}.auth-status.ok{background:#ecfdf3;color:#067647;border:1px solid #abefc6}.auth-status.wait{background:#fffaeb;color:#b54708;border:1px solid #fedf89}.auth-status.bad{background:#fff0f0;color:#a12626;border:1px solid #ffd1d1}.login-btn.secondary{background:#eef1f5;color:#344054}.login-btn.secondary:hover{background:#e4e8ee}.table-wrap{overflow:auto}.status-badge{display:inline-block;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:800}.status-approved{background:#ecfdf3;color:#067647}.status-pending{background:#fffaeb;color:#b54708}.status-blocked,.status-rejected{background:#fff0f0;color:#a12626}
 
 .dashboard-hero{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:20px}.dashboard-kicker{font-size:11px;letter-spacing:1.5px;font-weight:900;color:#1769aa;margin-bottom:7px}.dashboard-hero h1{font-size:32px}.dashboard-date{background:#fff;border:1px solid #e5eaf1;border-radius:12px;padding:10px 14px;font-size:13px;color:#526078;font-weight:700}.dashboard-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}.quick-action{border:1px solid #e1e7ef;background:#fff;border-radius:14px;padding:14px;text-align:left;cursor:pointer;display:grid;grid-template-columns:36px 1fr;column-gap:10px;align-items:center;transition:.18s}.quick-action:hover{transform:translateY(-1px);box-shadow:0 7px 22px #14223812;border-color:#cfd9e7}.quick-action.primary{background:#1769aa;border-color:#1769aa;color:#fff}.quick-action span{grid-row:span 2;font-size:24px}.quick-action b{font-size:13px}.quick-action small{font-size:11px;color:#758196;margin-top:2px}.quick-action.primary small{color:#dcecff}.dashboard-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.dash-metric{background:#fff;border:1px solid #e5eaf1;border-radius:16px;padding:16px;display:flex;gap:12px;align-items:center}.dash-icon{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:20px}.dash-icon.blue{background:#eaf3ff}.dash-icon.purple{background:#f1ebff}.dash-icon.green{background:#eaf9f0}.dash-icon.orange{background:#fff3e5}.dash-metric span{display:block;color:#758196;font-size:12px}.dash-metric strong{display:block;font-size:24px;line-height:1.2;margin:4px 0}.dash-metric small{color:#98a2b3;font-size:11px}.dashboard-main-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:16px;margin-top:16px}.dashboard-main-grid.second{grid-template-columns:1.25fr .75fr}.dash-section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.dash-section-head h2{margin:0;font-size:17px}.dash-section-head p{margin:4px 0 0}.goal-progress-row{margin:15px 0}.goal-progress-row>div:first-child{display:flex;justify-content:space-between;gap:10px;font-size:13px;margin-bottom:7px}.goal-progress-row>div:first-child span{color:#758196}.progress{height:9px;background:#eef1f5;border-radius:99px;overflow:hidden}.progress i{display:block;height:100%;width:0;background:#1769aa;border-radius:99px;transition:width .35s}.ai-title{display:flex;gap:10px;align-items:center;margin-bottom:13px}.ai-title>span{font-size:25px}.ai-title h2{margin:0;font-size:17px}.ai-title p{margin:4px 0 0}.dashboard-ai-analysis{display:grid;gap:9px;margin-bottom:14px}.ai-insight{padding:10px 11px;border-radius:11px;background:#f7f9fc;border:1px solid #e8edf4;font-size:12px;line-height:1.45}.ai-insight b{display:block;margin-bottom:3px;color:#24334a}.dashboard-task-list,.priority-list{display:grid;gap:8px}.dash-task{padding:11px 12px;border:1px solid #e8edf4;border-radius:11px;background:#fbfcfe}.dash-task-top{display:flex;align-items:center;gap:7px}.dash-task b{font-size:12px}.dash-task small{display:block;color:#758196;margin-top:5px}.priority-item{display:flex;gap:10px;align-items:flex-start;padding:11px 0;border-bottom:1px solid #edf0f5}.priority-item:last-child{border-bottom:0}.priority-number{width:25px;height:25px;border-radius:8px;background:#eef5ff;color:#1769aa;display:grid;place-items:center;font-weight:900;font-size:11px;flex:none}.priority-item b{font-size:12px;display:block}.priority-item small{font-size:11px;color:#758196;display:block;margin-top:3px}.week-mini-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.week-day{border:1px solid #e7ecf2;border-radius:12px;padding:11px;background:#fbfcfe;min-height:86px}.week-day .day{font-size:10px;font-weight:900;color:#1769aa;text-transform:uppercase}.week-day b{display:block;font-size:12px;margin-top:7px;line-height:1.3}.week-day small{color:#758196;font-size:10px;display:block;margin-top:5px}.dashboard-week-card{margin-bottom:20px}.empty-dash{padding:14px;border-radius:11px;background:#f8fafc;color:#758196;font-size:12px}.dashboard-ai-card .btn{width:100%}
@@ -90,7 +108,16 @@ input,select,textarea{width:100%;padding:10px;border:1px solid #d8e0ea;border-ra
   </div>
 </aside>
 <main class="main">
-<div class="topbar"><button class="logout-btn" onclick="logout()">Sair</button></div>
+<div class="topbar">
+  <div class="notification-wrap">
+    <button class="notification-btn" onclick="toggleNotifications()" aria-label="Notificações">🔔<span id="notificationBadge" class="notification-badge" style="display:none">0</span></button>
+    <div id="notificationPanel" class="notification-panel">
+      <div class="notification-head"><h3>🔔 Notificações</h3><button class="btn secondary small" onclick="markAllNotificationsRead()">Marcar todas</button></div>
+      <div id="notificationList" class="notification-list"></div>
+    </div>
+  </div>
+  <button class="logout-btn" onclick="logout()">Sair</button>
+</div>
 <section id="home" class="view active">
 <div class="dashboard-hero">
   <div><div class="dashboard-kicker">CENTRAL DE MARKETING</div><h1>Dashboard</h1><div class="sub">Tudo que você precisa para planejar, produzir e acompanhar o marketing da sua contabilidade.</div></div>
@@ -889,6 +916,160 @@ function copyIdea(t){navigator.clipboard?.writeText(t);}
 function transformAIIdea(x){gTheme.value=x.title;gFormat.value=x.format==='Carrossel'?'Post carrossel':x.format;gAudience.value=x.audience;gGoal.value=x.goal==='Vender'?'Divulgar serviço':x.goal==='Atrair clientes'?'Gerar mensagens no WhatsApp':x.goal==='Engajar'?'Gerar engajamento':'Educar';show('generator');generate();}
 function addAIIdeaToCalendar(x){let a=get('contents');a.push({id:Date.now(),date:'',format:x.format==='Carrossel'?'Post':x.format,theme:x.title,status:'Ideia'});set('contents',a);render();alert('Ideia adicionada ao calendário/conteúdos.');}
 
+
+// ==================== CENTRAL DE NOTIFICAÇÕES ====================
+const NOTIFICATION_KEY='mc_notifications';
+const IMPORTANT_DATE_YEARS=2;
+
+function notificationDateId(date,name){return 'date:'+date+':'+String(name).toLowerCase().replace(/[^a-z0-9áéíóúãõç]+/gi,'-');}
+function addNotification(type,title,message,target='',id=''){
+  let a=get(NOTIFICATION_KEY,[]);
+  const stableId=id||type+':'+title+':'+message;
+  if(a.some(x=>x.id===stableId)) return;
+  a.unshift({id:stableId,type,title,message,date:new Date().toISOString(),read:false,target});
+  set(NOTIFICATION_KEY,a.slice(0,100));
+}
+function unreadNotifications(){return get(NOTIFICATION_KEY,[]).filter(x=>!x.read).length}
+function renderNotifications(){
+  const a=get(NOTIFICATION_KEY,[]);
+  const unread=a.filter(x=>!x.read).length;
+  const badge=document.getElementById('notificationBadge');
+  if(badge){badge.textContent=unread>99?'99+':unread;badge.style.display=unread?'grid':'none';}
+  const list=document.getElementById('notificationList');
+  if(!list)return;
+  list.innerHTML=a.length?a.slice(0,40).map(x=>`<div class="notification-item ${x.read?'':'unread'}" onclick="openNotification('${esc(x.id)}','${esc(x.target||'')}')">
+    <b>${x.read?'':'<span class="notification-dot"></span>'}${esc(x.title)}</b>
+    <p>${esc(x.message)}</p><small>${formatNotificationTime(x.date)}</small>
+  </div>`).join(''):'<div class="notification-empty">Você está em dia. Nenhuma notificação nova.</div>';
+}
+function formatNotificationTime(v){
+  const d=new Date(v),now=new Date(),diff=Math.max(0,now-d);
+  if(diff<60000)return 'agora';
+  if(diff<3600000)return Math.floor(diff/60000)+' min atrás';
+  if(diff<86400000)return Math.floor(diff/3600000)+' h atrás';
+  return d.toLocaleDateString('pt-BR');
+}
+function toggleNotifications(){
+  const p=document.getElementById('notificationPanel'); if(!p)return;
+  p.classList.toggle('open'); renderNotifications();
+}
+function markAllNotificationsRead(){
+  const a=get(NOTIFICATION_KEY,[]).map(x=>({...x,read:true}));set(NOTIFICATION_KEY,a);renderNotifications();
+}
+function openNotification(id,target){
+  let a=get(NOTIFICATION_KEY,[]);a=a.map(x=>x.id===id?{...x,read:true}:x);set(NOTIFICATION_KEY,a);
+  const p=document.getElementById('notificationPanel');if(p)p.classList.remove('open');renderNotifications();
+  if(target)show(target);
+}
+document.addEventListener('click',e=>{
+  const w=document.querySelector('.notification-wrap');
+  if(w&&!w.contains(e.target)){const p=document.getElementById('notificationPanel');if(p)p.classList.remove('open');}
+});
+
+function easterSunday(year){
+  const a=year%19,b=Math.floor(year/100),c=year%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451);
+  return new Date(year,m-1,22+h+l);
+}
+function dateISO(d){return d.toISOString().slice(0,10)}
+function nthWeekday(year,month,weekday,n){
+  const d=new Date(year,month-1,1);let count=0;
+  while(d.getMonth()===month-1){if(d.getDay()===weekday&&++count===n)return new Date(d);d.setDate(d.getDate()+1)}
+}
+function lastWeekday(year,month,weekday){
+  const d=new Date(year,month,0);while(d.getDay()!==weekday)d.setDate(d.getDate()-1);return new Date(d)
+}
+function automaticImportantDates(year){
+  const fixed=[
+    ['01-01','Confraternização Universal','Feriado'],
+    ['01-20','Dia do Farmacêutico','Data profissional'],
+    ['03-08','Dia Internacional da Mulher','Data de conteúdo'],
+    ['03-15','Dia Mundial do Consumidor','Data de conteúdo'],
+    ['04-21','Tiradentes','Feriado nacional'],
+    ['05-01','Dia do Trabalho','Feriado nacional'],
+    ['06-12','Dia dos Namorados','Data comercial'],
+    ['06-24','São João','Data cultural — destaque regional'],
+    ['08-11','Dia do Advogado','Data profissional'],
+    ['09-07','Independência do Brasil','Feriado nacional'],
+    ['09-09','Dia do Administrador','Data profissional'],
+    ['09-15','Dia do Cliente','Data comercial'],
+    ['09-22','Dia do Contador','Data profissional'],
+    ['10-05','Dia Nacional da Micro e Pequena Empresa','Data empresarial'],
+    ['10-12','Nossa Senhora Aparecida / Dia das Crianças','Feriado nacional'],
+    ['10-15','Dia do Professor','Data de conteúdo'],
+    ['10-25','Dia do Dentista','Data profissional'],
+    ['10-28','Dia do Servidor Público','Data profissional'],
+    ['11-02','Finados','Feriado nacional'],
+    ['11-15','Proclamação da República','Feriado nacional'],
+    ['11-20','Dia da Consciência Negra','Feriado nacional'],
+    ['12-25','Natal','Feriado nacional'],
+    ['12-31','Réveillon','Data comercial']
+  ].map(x=>({date:year+'-'+x[0],name:x[1],kind:x[2],automatic:true}));
+  const easter=easterSunday(year);
+  const variable=[
+    {date:new Date(easter.getTime()-47*86400000),name:'Carnaval',kind:'Data variável'},
+    {date:easter,name:'Páscoa',kind:'Data comercial'},
+    {date:new Date(easter.getTime()+60*86400000),name:'Corpus Christi',kind:'Data variável'},
+    {date:nthWeekday(year,5,0,2),name:'Dia das Mães',kind:'Data comercial'},
+    {date:nthWeekday(year,8,0,2),name:'Dia dos Pais',kind:'Data comercial'},
+    {date:lastWeekday(year,11,5),name:'Black Friday',kind:'Data comercial'}
+  ].filter(x=>x.date).map(x=>({...x,date:dateISO(x.date),automatic:true}));
+  return fixed.concat(variable);
+}
+function seedImportantDates(){
+  let a=get('dates',[]), changed=false;
+  for(let y=new Date().getFullYear();y<=new Date().getFullYear()+IMPORTANT_DATE_YEARS;y++){
+    automaticImportantDates(y).forEach(d=>{
+      if(!a.some(x=>x.date===d.date&&x.name===d.name)){a.push({id:'auto-'+notificationDateId(d.date,d.name),...d});changed=true;}
+    });
+  }
+  if(changed){set('dates',a);return true} return false;
+}
+function checkImportantDateNotifications(){
+  const now=new Date();const end=new Date(now.getTime()+7*86400000);
+  get('dates',[]).forEach(d=>{
+    if(!d.date)return;
+    const day=new Date(d.date+'T09:00:00');
+    if(day>=new Date(now.getFullYear(),now.getMonth(),now.getDate())&&day<=end){
+      const days=Math.ceil((day-new Date(now.getFullYear(),now.getMonth(),now.getDate()))/86400000);
+      const when=days===0?'é hoje':days===1?'é amanhã':'acontece em '+days+' dias';
+      addNotification('important-date','📅 '+d.name,when+'. Ótimo momento para planejar um conteúdo.',d.automatic?'dates':'dates','important-date:'+d.date+':'+d.name);
+    }
+  });
+}
+function checkContentNotifications(){
+  const now=new Date();const limit=new Date(now.getTime()+2*86400000);
+  get('contents',[]).forEach(x=>{
+    if(!x.date||x.status==='Concluído')return;
+    const d=new Date(x.date+'T09:00:00');
+    if(d>=new Date(now.getFullYear(),now.getMonth(),now.getDate())&&d<=limit){
+      addNotification('content','📝 Conteúdo próximo',`${x.format||'Conteúdo'}: ${x.theme||'sem tema'} — ${x.status||'pendente'}.`,'calendar','content:'+x.id);
+    }
+  });
+}
+function checkGoalNotifications(){
+  const goals=get('goals',[]); if(!goals.length)return;
+  const today=new Date().getDate(),days=new Date(new Date().getFullYear(),new Date().getMonth()+1,0).getDate();
+  if(today>=Math.max(1,days-3)) addNotification('goal','🎯 Fechamento do mês','Revise suas metas e finalize o que ainda estiver pendente.','goals','goal:month-end:'+new Date().toISOString().slice(0,7));
+}
+function notifyDesktop(title,body){
+  try{if(window.desktopNotifications?.show)window.desktopNotifications.show(title,body)}catch(e){}
+}
+function sendDesktopAlerts(){
+  const a=get(NOTIFICATION_KEY,[]), sent=get('mc_desktop_notifications',[]);
+  a.filter(x=>!sent.includes(x.id)).slice(0,10).forEach(x=>{
+    notifyDesktop(x.title,x.message);sent.push(x.id);
+  });
+  set('mc_desktop_notifications',sent.slice(-100));
+}
+function initializeNotifications(){
+  seedImportantDates();
+  checkImportantDateNotifications();
+  checkContentNotifications();
+  checkGoalNotifications();
+  renderNotifications();
+  sendDesktopAlerts();
+}
+
 function generate(){
 let t=gTheme.value.trim()||'um tema contábil', f=gFormat.value, aud=gAudience.value, tone=gTone.value, goal=gGoal.value, detail=gDetail.value;
 let out='';
@@ -959,6 +1140,8 @@ ensureCurrentMonth();
 applyAuth();
 render();
 renderInstagram();
+setTimeout(initializeNotifications,350);
+setInterval(initializeNotifications,60*60*1000);
 </script>
 </body>
 </html>
